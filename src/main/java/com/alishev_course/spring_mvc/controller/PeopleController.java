@@ -20,7 +20,8 @@ public class PeopleController {
 
     @Autowired
 //    public PeopleController(@Qualifier("PersonDAOList") PersonDAO personDAO) {
-    public PeopleController(@Qualifier("PersonDAOJDBC") PersonDAO personDAO) {
+//    public PeopleController(@Qualifier("PersonDAOJDBC") PersonDAO personDAO) {
+    public PeopleController(@Qualifier("PersonDAOJdbcTemplate") PersonDAO personDAO) {
         this.personDAO = personDAO;
     }
 

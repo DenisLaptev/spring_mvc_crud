@@ -18,11 +18,13 @@ public class PersonDAOJDBC implements PersonDAO {
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "postgres";
 
+    private static final String JDBC_DRIVER = "org.postgresql.Driver";
+
     private static Connection connection;
 
     static {
         try {
-            Class.forName("org.postgresql.Driver");
+            Class.forName(JDBC_DRIVER);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
