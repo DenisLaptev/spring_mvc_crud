@@ -100,7 +100,7 @@ public class PersonDAOJDBC implements PersonDAO {
             Statement statement = connection.createStatement();
             statement.executeUpdate(SQL);
             */
-            String SQL = "INSERT INTO Person VALUES(1, ?, ?, ?)";
+            String SQL = "INSERT INTO Person(name, age, email) VALUES(?, ?, ?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(SQL);
 

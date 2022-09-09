@@ -45,7 +45,7 @@ public class PersonDAOJdbcTemplate implements PersonDAO {
 
     @Override
     public void save(Person person) {
-        jdbcTemplate.update("INSERT INTO Person VALUES(1, ?, ?, ?)", person.getName(), person.getAge(), person.getEmail());
+        jdbcTemplate.update("INSERT INTO Person(name, age, email) VALUES(?, ?, ?)", person.getName(), person.getAge(), person.getEmail());
     }
 
     @Override
