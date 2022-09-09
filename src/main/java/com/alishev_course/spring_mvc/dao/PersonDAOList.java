@@ -52,4 +52,14 @@ public class PersonDAOList implements PersonDAO{
     public void delete(int id) {
         people.removeIf(p -> p.getId() == id);
     }
+
+    @Override
+    public void testMultipleUpdate() {
+
+    }
+
+    @Override
+    public void testBatchUpdate() {
+
+    }
 }

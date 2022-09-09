@@ -148,4 +148,14 @@ public class PersonDAOJDBC implements PersonDAO {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void testMultipleUpdate() {
+
+    }
+
+    @Override
+    public void testBatchUpdate() {
+
+    }
 }

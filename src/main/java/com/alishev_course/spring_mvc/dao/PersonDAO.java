@@ -15,5 +15,9 @@ public interface PersonDAO {
     void update(int id, Person updatedPerson);
 
     void delete(int id);
+
+    void testMultipleUpdate();
+
+    void testBatchUpdate();
 }
 
