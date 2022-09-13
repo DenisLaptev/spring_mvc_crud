@@ -6,11 +6,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Component
 @Qualifier("PersonDAOList")
-public class PersonDAOList implements PersonDAO{
+public class PersonDAOList implements PersonDAO {
 
     private static int PEOPLE_COUNT;
     private List<Person> people;
@@ -18,10 +19,10 @@ public class PersonDAOList implements PersonDAO{
     {
         people = new ArrayList<>();
 
-        people.add(new Person(++PEOPLE_COUNT, "Tom", 24, "tom@mail.ru"));
-        people.add(new Person(++PEOPLE_COUNT, "Bob", 52, "bob@mail.ru"));
-        people.add(new Person(++PEOPLE_COUNT, "Mike", 18, "mike@yahoo.ru"));
-        people.add(new Person(++PEOPLE_COUNT, "Katy", 34, "katy@mail.ru"));
+        people.add(new Person(++PEOPLE_COUNT, "Tom", 24, "tom@mail.ru", "some address"));
+        people.add(new Person(++PEOPLE_COUNT, "Bob", 52, "bob@mail.ru", "some address"));
+        people.add(new Person(++PEOPLE_COUNT, "Mike", 18, "mike@yahoo.ru", "some address"));
+        people.add(new Person(++PEOPLE_COUNT, "Katy", 34, "katy@mail.ru", "some address"));
     }
 
     @Override
@@ -32,6 +33,11 @@ public class PersonDAOList implements PersonDAO{
     @Override
     public Person show(int id) {
         return people.stream().filter(person -> person.getId() == id).findAny().orElse(null);
+    }
+
+    @Override
+    public Optional<Person> show(String email) {
+        return people.stream().filter(person -> person.getEmail().equals(email)).findAny();
     }
 
     @Override
@@ -46,6 +52,7 @@ public class PersonDAOList implements PersonDAO{
         personToUpdate.setName(updatedPerson.getName());
         personToUpdate.setAge(updatedPerson.getAge());
         personToUpdate.setEmail(updatedPerson.getEmail());
+        personToUpdate.setAddress(updatedPerson.getAddress());
     }
 
     @Override

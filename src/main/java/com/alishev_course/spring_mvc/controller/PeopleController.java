@@ -1,8 +1,8 @@
 package com.alishev_course.spring_mvc.controller;
 
 import com.alishev_course.spring_mvc.dao.PersonDAO;
-import com.alishev_course.spring_mvc.dao.PersonDAOList;
 import com.alishev_course.spring_mvc.model.Person;
+import com.alishev_course.spring_mvc.util.PersonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -17,12 +17,14 @@ import javax.validation.Valid;
 public class PeopleController {
 
     private final PersonDAO personDAO;
+    private final PersonValidator personValidator;
 
     @Autowired
 //    public PeopleController(@Qualifier("PersonDAOList") PersonDAO personDAO) {
-    public PeopleController(@Qualifier("PersonDAOJDBC") PersonDAO personDAO) {
-//    public PeopleController(@Qualifier("PersonDAOJdbcTemplate") PersonDAO personDAO) {
+//    public PeopleController(@Qualifier("PersonDAOJDBC") PersonDAO personDAO) {
+    public PeopleController(@Qualifier("PersonDAOJdbcTemplate") PersonDAO personDAO, PersonValidator personValidator) {
         this.personDAO = personDAO;
+        this.personValidator = personValidator;
     }
 
     @GetMapping
@@ -56,6 +58,8 @@ public class PeopleController {
     public String create(@ModelAttribute("person") @Valid Person person,
                          BindingResult bindingResult) {
 
+        personValidator.validate(person, bindingResult);
+
         if (bindingResult.hasErrors()) {
             return "people/new";
         }
@@ -73,7 +77,10 @@ public class PeopleController {
     public String update(@ModelAttribute("person") @Valid Person person,
                          BindingResult bindingResult,
                          @PathVariable("id") int id) {
-        if(bindingResult.hasErrors()){
+
+        personValidator.validate(person, bindingResult);
+
+        if (bindingResult.hasErrors()) {
             return "people/edit";
         }
         personDAO.update(id, person);

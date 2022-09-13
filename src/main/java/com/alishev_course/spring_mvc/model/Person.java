@@ -1,10 +1,7 @@
 package com.alishev_course.spring_mvc.model;
 
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class Person {
     private int id;
@@ -20,14 +17,28 @@ public class Person {
     @Email(message = "Email should be valid")
     private String email;
 
+
+    //https://rexegg.com/regex-quickstart.html
+
+    //Country, City, Index(6 digits)
+    //Japan, Tokio, 123456
+    //[A-Z] - first capital letter of Country
+    //\\w+ - other letters of Country
+    //\\d{6} - 6 digits
+    @Pattern(
+            regexp = "[A-Z]\\w+, [A-Z]\\w+, \\d{6}",
+            message="Address should be in format: Country, City, PostCode (6 digits)")
+    private String address;
+
     public Person() {
     }
 
-    public Person(int id, String name, int age, String email) {
+    public Person(int id, String name, int age, String email, String address) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.email = email;
+        this.address = address;
     }
 
     public int getId() {
@@ -62,6 +73,14 @@ public class Person {
         this.email = email;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -69,6 +88,7 @@ public class Person {
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }
