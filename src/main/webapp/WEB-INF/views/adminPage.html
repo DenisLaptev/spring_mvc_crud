@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+</head>
+
+<body>
+
+<h1>Set administrator</h1>
+
+<form th:method="PATCH" th:action="@{/admin/add}">
+    <label for="select_id">Choose a Person</label>
+    <!--th:field="*{id}" will be in value-->
+    <select th:object="${person}" th:field="*{id}" id="select_id">
+        <option
+                th:each="person : ${people}"
+                th:value="${person.getId()}"
+                th:text="${person.getName()}">
+        </option>
+    </select>
+
+    <input type="submit" value="Set Admin">
+</form>
+
+</body>
+</html>
